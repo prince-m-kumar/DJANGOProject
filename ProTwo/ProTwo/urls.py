@@ -22,3 +22,51 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='Index'),
 ]
+
+
+
+
+ mDb = AppDatabase.getDatabaseInstance(getApplicationContext());
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                LiveData<Favorite> favorite = mDb.favoriteDao().getFavoriteById(Integer.parseInt(movie.getId()));
+                setFavorite(favorite.getValue());
+            }
+        });
+
+
+
+
+    private void setFavorite(Boolean fav){
+        if (fav) {
+            isFav = true;
+             ivStar.setImageResource(R.drawable.ic_star_yellow_48dp);
+        } else {
+            isFav = false;
+             ivStar.setImageResource(R.drawable.ic_star_border_yellow_48dp);
+        }
+    }
+
+
+
+     AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isFav) {
+                            // delete item
+                            viewModel.removeFavorite();
+                        } else {
+                            // insert item
+                            viewModel.addFavorite();
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setFavorite(!isFav);
+                            }
+                        });
+                    }
+
+                });
