@@ -23,7 +23,8 @@ def populate(N=5):
         fake_url = fakegen.url()
         fake_date = fakegen.date()
         fake_name = fakegen.company()
-
+        fake_add = fakegen.address()
+        print(fake_add)
         #create new pweb page entry
         webpg = webPage.objects.get_or_create(topic = top,url=fake_url,name = fake_name)[0]
 
