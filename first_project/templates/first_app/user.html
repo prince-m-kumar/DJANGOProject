@@ -1,0 +1,31 @@
+<<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>User data populate </title>
+
+  </head>
+  <body>
+    <div class="djangotwo">
+    {% if access_user %}
+      <table>
+        <thead>
+          <th>Site Name</th>
+            <th>Data Accessed</th>
+          </thead>
+
+        {% for acc in access_user %}
+        <tr>
+          <td>{{acc.first_name}}</td>
+          <td>{{acc.last_name}}</td>
+          <td>{{acc.email}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    {% else %}
+    <p> No Access Records found</p>
+    {% endif %}
+  </body>
+</html>

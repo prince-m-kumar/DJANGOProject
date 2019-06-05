@@ -33,3 +33,14 @@ class AccessRecord(models.Model):
     # def __init__(self, arg):
     #     super(webPage, self).__init__()
     #     self.arg = arg
+class User(models.Model):
+    """docstring for User."""
+    first_name = models.CharField(max_length=264)
+    last_name = models.CharField(max_length=264)
+    email = models.CharField(max_length=264,unique=True)
+    # def __init__(self):
+    #     super(Topic, self).__init__()
+    #
+    #
+    def __str__(self):
+        return self.first_name
